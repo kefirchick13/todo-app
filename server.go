@@ -1,4 +1,4 @@
-package todo_app
+package todo
 
 import (
 	"context"
@@ -10,7 +10,7 @@ type Server struct {
 	httpServer *http.Server
 }
 
-func (s *Server) Run(port string) error {
+func (s *Server) Run(port string, handler *http.Handler) error {
 	s.httpServer = &http.Server{
 		Addr:           ":" + port,
 		MaxHeaderBytes: 1 << 20, // 1mb
