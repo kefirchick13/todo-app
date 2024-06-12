@@ -2,35 +2,41 @@ package handler
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/kefirchick13/todo-app/pkg/service"
 )
 
 type Handler struct {
+	services *service.Service
 }
 
-func (h *Handler) initRoutes() *gin.Engine {
+func NewHandler(services *service.Service) *Handler {
+	return &Handler{services: services}
+}
+
+func (h *Handler) InitRoutes() *gin.Engine {
 	router := gin.New()
 
 	auth := router.Group("/auth")
 	{
-		auth.POST("/sign-up")
-		auth.POST("/sign-in")
+		auth.POST("/sign-up", h.signUp)
+		auth.POST("/sign-in", h.signIn)
 	}
 	api := router.Group("/api")
 	{
 		lists := api.Group("/lists")
 		{
-			lists.POST("/")
-			lists.GET("/")
-			lists.GET("/:id")
-			lists.PUT("/:id")
-			lists.DELETE("/:id")
+			lists.POST("/", h.createList)
+			lists.GET("/", h.getAllLists)
+			lists.GET("/:id", h.getListsById)
+			lists.PUT("/:id", h.updateList)
+			lists.DELETE("/:id", h.deleteListById)
 			items := api.Group(":id/items")
 			{
-				items.POST("/")
-				items.GET("/")
-				items.GET("/:item_id")
-				items.DELETE("/:item_id")
-				items.PUT("/:item_id")
+				items.POST("/", h.createItem)
+				items.GET("/", h.getAllItem)
+				items.GET("/:item_id", h.getItemById)
+				items.DELETE("/:item_id", h.deleteItemById)
+				items.PUT("/:item_id", h.updateItem)
 			}
 
 		}
