@@ -65,14 +65,14 @@ func initConfig() error {
 
 // Поднятие баз
 
-// migrate -path ./schema -database 'postgres://postgres:qwerty@localhost:5436/postgres?sslmode=disable' up
+// migrate -path ./schema -database 'postgres://postgres:qwerty@localhost:5438/postgres?sslmode=disable' up
 
 // Дроп
 
-// migrate -path ./schema -database 'postgres://postgres:qwerty@localhost:5436/postgres?sslmode=disable' down
+// migrate -path ./schema -database 'postgres://postgres:qwerty@localhost:5438/postgres?sslmode=disable' down
 
 // запуск контейнера
-// docker start 88c9467f71b9
+// docker start 8a13bc9cbee328ac098df181c551f5ed6758132ec5ecca0c558f5e262aa43d84
 
 // Просмотр контейнерров(всех)
 // docker ps -a
