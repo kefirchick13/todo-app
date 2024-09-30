@@ -63,6 +63,11 @@ func initConfig() error {
 // On Git Bash:
 // winpty docker exec -it <container-id> //bin//sh
 
+
+//Поднятие контейнера
+
+// docker run --name=todo-db -e POSTGRES_PASSWORD='qwerty' -p 5438:5432 -d --rm postgres
+
 // Поднятие баз
 
 // migrate -path ./schema -database 'postgres://postgres:qwerty@localhost:5438/postgres?sslmode=disable' up
@@ -76,3 +81,11 @@ func initConfig() error {
 
 // Просмотр контейнерров(всех)
 // docker ps -a
+
+// docker exec -it c96536d845bd80f7fb1cee2a244c5dd795b4921a6f088d99b782d856b80b7476 /bin/bash подключение к контейнеру базы
+
+// psql -U postgres Вход в базу через утилиту
+
+// \d Просмотр таблиц 
+
+// exit выход из контейнера
