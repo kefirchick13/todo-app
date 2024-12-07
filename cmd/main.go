@@ -64,7 +64,7 @@ func initConfig() error {
 // winpty docker exec -it <container-id> //bin//sh
 
 
-//Поднятие контейнера
+// Поднятие контейнера
 
 // docker run --name=todo-db -e POSTGRES_PASSWORD='qwerty' -p 5438:5432 -d --rm postgres
 

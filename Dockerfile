@@ -1,27 +1,33 @@
-FROM golang:1.22.5-alpine AS compiler
-WORKDIR /app
+FROM golang:alpine
 
-COPY go.mod go.sum ./
+# Убедимся, что у нас есть необходимые инструменты
+RUN apk update && apk add --no-cache \
+    bash \
+    curl \
+    postgresql-client \
+    build-base \
+    git
+
+# Установить версию Go (дополнительно, если нужно)
+RUN go version
+
+# Установить GOPATH (опционально)
+ENV GOPATH=/
+
+# Копируем исходный код приложения
+COPY ./ ./
+
+# Делаем скрипт для ожидания Postgres исполняемым
+RUN chmod +x wait-for-postgres.sh
+
+# Загружаем зависимости Go
 RUN go mod download
-COPY . .
-RUN go build -o /build/app 
 
-FROM alpine
-WORKDIR /app
-COPY --from=compiler ./build/app /app/app
+# Сборка Go-приложения
+RUN go build -o todo-app ./cmd/main.go
 
-RUN chmod -R 777 /app/app
-CMD [ "/app/app" ]
-
-# FROM golang:latest 
-
-# COPY ./ ./
-# RUN go build -o main
-
-# RUN chmod +x ./main
-
-# CMD [ "./main" ]
-
+# Указываем команду запуска приложения
+CMD ["./todo-app"]
 
 
 # # Этап сборки
